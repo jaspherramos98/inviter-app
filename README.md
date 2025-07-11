@@ -44,39 +44,59 @@ A web application that revolutionizes how invitations are sent and managed throu
 ```
 inviter-app/
 ├── backend/
-│   ├── main.py              # FastAPI application entry point
-│   ├── models.py            # SQLAlchemy database models
-│   ├── schemas.py           # Pydantic validation schemas
-│   ├── database.py          # Database configuration
-│   ├── auth.py              # Authentication utilities
-│   ├── utils.py             # Helper functions (SMS, links)
-│   ├── requirements.txt     # Python dependencies
-│   └── .env.example         # Environment variables template
+│ ├── pycache/ # Python bytecode cache
+│ ├── venv/ # Python virtual environment
+│ ├── main.py # FastAPI application entry point
+│ ├── models.py # SQLAlchemy database models
+│ ├── schemas.py # Pydantic validation schemas
+│ ├── database.py # Database configuration
+│ ├── auth.py # Authentication utilities
+│ ├── utils.py # Helper functions (SMS, links)
+│ ├── init_db.py # Database initialization
+│ ├── requirements.txt # Python dependencies
+│ ├── .env.example # Environment variables template
+│ └── inviter.db # SQLite database file
 │
 ├── frontend/
-│   ├── src/
-│   │   ├── App.js           # Main React application
-│   │   ├── pages/
-│   │   │   ├── Dashboard.js      # Main dashboard
-│   │   │   ├── CreateInvitation.js # Multi-step creation
-│   │   │   ├── InvitationDetails.js # Detailed view
-│   │   │   ├── ResponsePage.js   # Public response page
-│   │   │   └── Login.js          # Authentication
-│   │   ├── components/
-│   │   │   ├── InvitationList.js # Invitation cards
-│   │   │   ├── InvitationForm.js # Creation form
-│   │   │   ├── RecipientSelector.js # Contact selection
-│   │   │   ├── InvitationPreview.js # Live preview
-│   │   │   └── StatsCard.js      # Analytics cards
-│   │   ├── contexts/
-│   │   │   ├── AuthContext.js    # Authentication state
-│   │   │   └── NotificationContext.js # Toast notifications
-│   │   ├── services/
-│   │   │   └── api.js            # API service layer
-│   │   └── index.js              # React entry point
-│   └── package.json              # NPM dependencies
+│ ├── node_modules/ # NPM dependencies
+│ ├── public/ # Static assets
+│ ├── src/
+│ │ ├── components/
+│ │ │ ├── DarkModeToggle.js # Theme switcher
+│ │ │ ├── ErrorBoundary.js # Error handling
+│ │ │ ├── InvitationForm.js # Creation form
+│ │ │ ├── InvitationList.js # Invitation cards
+│ │ │ ├── InvitationPreview.js # Live preview
+│ │ │ ├── LoadingSpinner.js # Loading indicator
+│ │ │ ├── Navbar.js # Navigation bar
+│ │ │ ├── PrivateRoute.js # Protected routes
+│ │ │ ├── RecipientSelector.js # Contact selection
+│ │ │ ├── StatsCard.js # Analytics cards
+│ │ │ └── TemplateSelector.js # Template picker
+│ │ ├── contexts/
+│ │ │ ├── AuthContext.js # Authentication state
+│ │ │ ├── NotificationContext.js # Toast notifications
+│ │ │ └── ThemeContext.js # Theme management
+│ │ ├── services/
+│ │ │ ├── api.js
+│ │ ├── pages/
+│ │ │ ├── CreateInvitation.js # Multi-step creation
+│ │ │ ├── Dashboard.js # Main dashboard
+│ │ │ ├── InvitationDetails.js # Detailed view
+│ │ │ ├── Login.js # Authentication
+│ │ │ ├── ResponsePage.js # Public response page
+│ │ │ └── Signup.js # User registration
+│ │ ├── App.js # Main React component
+│ │ ├── App.css # Main App css React component
+│ │ ├── index.css # Main Index css React component
+│ │ └── index.js # React entry point
+│ ├── .env # Frontend environment vars
+│ ├── package.json # NPM dependencies
+│ ├── package-lock.json # Lockfile
+│ └── tailwind.config.js # Tailwind CSS config
 │
-└── README.md                     # This file
+├── .gitignore # Version control exclusions
+└── README.md # Project documentation
 ```
 
 ## 🚀 Getting Started
