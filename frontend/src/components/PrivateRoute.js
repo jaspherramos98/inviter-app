@@ -4,8 +4,16 @@
 
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function PrivateRoute({ children }) {
-  const { currentUser } = useAuth();
-  return currentUser ? children : <Navigate to="/login" />;
+  const { user, loading } = useAuth();
+  
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  
+  // Redirect to login if not authenticated
+  return user ? children : <Navigate to="/login" />;
 }

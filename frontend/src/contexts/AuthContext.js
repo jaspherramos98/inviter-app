@@ -1,6 +1,6 @@
 // File: frontend/src/contexts/AuthContext.js
 // Path: /inviter-app/frontend/src/contexts/AuthContext.js
-// Description: Authentication context for managing user state
+// Description: Fixed authentication context with proper login method
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { api } from '../services/api';
@@ -17,48 +17,22 @@ export const AuthProvider = ({ children }) => {
     // Check for existing session
     const token = localStorage.getItem('token');
     if (token) {
-      // Verify token and get user info
-      verifyToken(token);
+      // Set token in api headers
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // For now, just set loading to false since we don't have a /auth/me endpoint yet
+      setLoading(false);
     } else {
       setLoading(false);
     }
   }, []);
 
-  const verifyToken = async (token) => {
-    try {
-      // Set token in api headers
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      
-      // Get user profile (would need this endpoint in backend)
-      const response = await api.get('/auth/me');
-      setUser(response.data);
-    } catch (error) {
-      console.error('Token verification failed:', error);
-      logout();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const login = async (email, password) => {
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      const { access_token, user } = response.data;
-      
-      // Store token
-      localStorage.setItem('token', access_token);
-      api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      
-      // Set user state
-      setUser(user);
-      
-      return { success: true };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.response?.data?.detail || 'Login failed'
-      };
-    }
+  const login = (token, userData) => {
+    // Store token
+    localStorage.setItem('token', token);
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    
+    // Set user state
+    setUser(userData);
   };
 
   const signup = async (userData) => {

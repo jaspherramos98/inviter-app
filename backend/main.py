@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime, timedelta
 import secrets
+from pydantic import BaseModel
 
 # Import your schemas (keep your existing schemas.py file as is)
 from schemas import (
@@ -66,6 +67,10 @@ async def health_check():
     }
 
 # ==================== AUTH ROUTES ====================
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
 @app.post("/auth/signup", response_model=UserResponse)
 async def signup(user_data: UserCreate):
     """Create new user account"""
@@ -95,14 +100,14 @@ async def signup(user_data: UserCreate):
     }
 
 @app.post("/auth/login")
-async def login(email: str, password: str):
+async def login(login_data: LoginRequest):
     """Login with email and password"""
     # Mock login - accept any password for demo
-    if email not in mock_users:
+    if login_data.email not in mock_users:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    user = mock_users[email]
-    access_token = create_mock_token(email)
+    user = mock_users[login_data.email]
+    access_token = create_mock_token(login_data.email)
     
     return {
         "access_token": access_token,

@@ -174,7 +174,7 @@ function ResponsePage() {
             <>
               {/* Response Buttons */}
               <div className="response-section">
-                <p className="response-prompt">Will you be attending?</p>
+                <p className="response-prompt">Do you accept the invitation?</p>
                 <div className="response-buttons">
                   <button
                     className="response-btn response-yes"
